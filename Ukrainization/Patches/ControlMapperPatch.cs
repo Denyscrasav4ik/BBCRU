@@ -240,6 +240,7 @@ namespace Ukrainization.Patches
             private static void Postfix(Rewired.UI.ControlMapper.Window __instance)
             {
                 ApplyDynamicButtonLocalization(__instance);
+                ApplyDynamicTitleLocalization(__instance);
             }
 
             private static void ApplyDynamicButtonLocalization(
@@ -289,6 +290,118 @@ namespace Ukrainization.Patches
                     localizer.RefreshLocalization();
                 }
             }
+        }
+
+        private static void ApplyDynamicTitleLocalization(Rewired.UI.ControlMapper.Window window)
+        {
+            Transform contentParent = window.transform.Find("Content");
+            if (contentParent == null)
+                return;
+
+            TextMeshProUGUI titleText = null;
+
+            foreach (Transform t in contentParent.GetComponentsInChildren<Transform>(true))
+            {
+                if (t.name == "Title Text")
+                {
+                    titleText = t.GetComponent<TextMeshProUGUI>();
+                    if (titleText != null)
+                        break;
+                }
+            }
+
+            if (titleText == null)
+                return;
+
+            var localizer =
+                titleText.gameObject.GetComponent<TextLocalizer>()
+                ?? titleText.gameObject.AddComponent<TextLocalizer>();
+
+            string tmpText = titleText.text;
+
+            if (tmpText.Contains("Restore Defaults"))
+                localizer.key = "Ukr_Ctrl_RestoreDefaults";
+            else if (tmpText.Contains("Сalibrate Controller"))
+                localizer.key = "Ukr_Ctrl_Calibrate_Title";
+            else if (tmpText.Contains("Horizontal movement"))
+                localizer.key = "Ukr_Ctrl_Action_1";
+            else if (tmpText.Contains("Strafe right"))
+                localizer.key = "Ukr_Ctrl_Action_2";
+            else if (tmpText.Contains("Strafe left"))
+                localizer.key = "Ukr_Ctrl_Action_3";
+            else if (tmpText.Contains("Vertical movement"))
+                localizer.key = "Ukr_Ctrl_Action_4";
+            else if (tmpText.Contains("Move forward"))
+                localizer.key = "Ukr_Ctrl_Action_5";
+            else if (tmpText.Contains("Move backward"))
+                localizer.key = "Ukr_Ctrl_Action_6";
+            else if (tmpText.Contains("Turn (Joystick)"))
+                localizer.key = "Ukr_Ctrl_Action_7";
+            else if (tmpText.Contains("Turn right"))
+                localizer.key = "Ukr_Ctrl_Action_8";
+            else if (tmpText.Contains("Turn left"))
+                localizer.key = "Ukr_Ctrl_Action_9";
+            else if (tmpText.Contains("Turn (Mouse)"))
+                localizer.key = "Ukr_Ctrl_Action_10";
+            else if (tmpText.Contains("Turn right"))
+                localizer.key = "Ukr_Ctrl_Action_11";
+            else if (tmpText.Contains("Turn left"))
+                localizer.key = "Ukr_Ctrl_Action_12";
+            else if (tmpText.Contains("Interact"))
+                localizer.key = "Ukr_Ctrl_Action_14";
+            else if (tmpText.Contains("Use item"))
+                localizer.key = "Ukr_Ctrl_Action_15";
+            else if (tmpText.Contains("Run"))
+                localizer.key = "Ukr_Ctrl_Action_16";
+            else if (tmpText.Contains("Look back"))
+                localizer.key = "Ukr_Ctrl_Action_17";
+            else if (tmpText.Contains("Item select left"))
+                localizer.key = "Ukr_Ctrl_Action_18";
+            else if (tmpText.Contains("Item select right"))
+                localizer.key = "Ukr_Ctrl_Action_19";
+            else if (tmpText.Contains("Item select axis"))
+                localizer.key = "Ukr_Ctrl_Action_20";
+            else if (tmpText.Contains("ItemSelect +"))
+                localizer.key = "Ukr_Ctrl_Action_21";
+            else if (tmpText.Contains("ItemSelect -"))
+                localizer.key = "Ukr_Ctrl_Action_22";
+            else if (tmpText.Contains("Item 1"))
+                localizer.key = "Ukr_Ctrl_Action_23";
+            else if (tmpText.Contains("Item 2"))
+                localizer.key = "Ukr_Ctrl_Action_24";
+            else if (tmpText.Contains("Item 3"))
+                localizer.key = "Ukr_Ctrl_Action_25";
+            else if (tmpText.Contains("Pause"))
+                localizer.key = "Ukr_Ctrl_Action_26";
+            else if (tmpText.Contains("Click"))
+                localizer.key = "Ukr_Ctrl_Action_28";
+            else if (tmpText.Contains("Cursor Speed Boost"))
+                localizer.key = "Ukr_Ctrl_Action_29";
+            else if (tmpText.Contains("Cursor Horizontal (Joystick)"))
+                localizer.key = "Ukr_Ctrl_Action_30";
+            else if (tmpText.Contains("Cursor Horizontal (Joystick) +"))
+                localizer.key = "Ukr_Ctrl_Action_31";
+            else if (tmpText.Contains("Cursor Horizontal (Joystick) -"))
+                localizer.key = "Ukr_Ctrl_Action_32";
+            else if (tmpText.Contains("Cursor Vertical (Joystick)"))
+                localizer.key = "Ukr_Ctrl_Action_33";
+            else if (tmpText.Contains("Cursor Vertical (Joystick) +"))
+                localizer.key = "Ukr_Ctrl_Action_34";
+            else if (tmpText.Contains("Cursor Vertical (Joystick) -"))
+                localizer.key = "Ukr_Ctrl_Action_35";
+            else if (tmpText.Contains("Cursor Horizontal (Mouse)"))
+                localizer.key = "Ukr_Ctrl_Action_36";
+            else if (tmpText.Contains("Cursor Horizontal (Mouse) +"))
+                localizer.key = "Ukr_Ctrl_Action_37";
+            else if (tmpText.Contains("Cursor Horizontal (Mouse) -"))
+                localizer.key = "Ukr_Ctrl_Action_38";
+            else if (tmpText.Contains("Cursor Vertical (Mouse)"))
+                localizer.key = "Ukr_Ctrl_Action_39";
+            else if (tmpText.Contains("Cursor Vertical (Mouse) +"))
+                localizer.key = "Ukr_Ctrl_Action_40";
+            else if (tmpText.Contains("Cursor Vertical (Mouse) -"))
+                localizer.key = "Ukr_Ctrl_Action_41";
+            localizer.RefreshLocalization();
         }
 
         #endregion
