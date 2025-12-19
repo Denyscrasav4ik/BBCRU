@@ -39,6 +39,7 @@ namespace Ukrainization
             GameUtils.CreateInstance<PostersManager>();
             GameUtils.CreateInstance<UkrainizationController>();
             GameUtils.CreateInstance<LanguageManager>();
+            gameObject.AddComponent<ButtonNamesPatch>();
         }
 
         private void CreateModDirectories()
