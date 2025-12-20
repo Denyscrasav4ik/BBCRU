@@ -15,6 +15,9 @@ namespace Ukrainization.Patches
         private const string WINDOW_PATH =
             "RewiredControlMapper/Canvas/Window/Content/Content Text";
         private const string PLAYTIME_PATH = "TextCanvas";
+        private const string CALIB_PATH =
+            "RewiredControlMapper/Canvas/CalibrationWindow/Content/InnerContent/LeftGroup/ScrollboxContainer/ScrollArea/Content";
+
         private static readonly Dictionary<string, string> Map = new Dictionary<string, string>
         {
             { "Space", "Пробіл" },
@@ -32,6 +35,7 @@ namespace Ukrainization.Patches
             { "Down Arrow", "Стрілка Вниз" },
             { "Left Arrow", "Стрілка Вліво" },
             { "Right Arrow", "Стрілка Вправо" },
+            { "Back Quote", "Апостроф" },
             { "Left Mouse Button", "Ліва Клавіша Миші" },
             { "Right Mouse Button", "Права Клавіша Миші" },
             { "Mouse Button 3", "Клавіша Миші 3" },
@@ -51,17 +55,21 @@ namespace Ukrainization.Patches
             { "Right Stick X", "Правий Стік X" },
             { "Left Stick X", "Лівий Стік X" },
             { "Right Stick Y", "Правий Стік Y" },
-            { "Left Stick Y", "Лівий Стік Y" },    
+            { "Left Stick Y", "Лівий Стік Y" },
             { "Left Trigger", "Лівий Тригер" },
             { "Right Trigger", "Правий Тригер" },
             { "Start", "Старт" },
             { "Back", "Назад" },
         };
+
         private readonly Dictionary<TextMeshProUGUI, string> _textCache =
             new Dictionary<TextMeshProUGUI, string>();
+
         private bool _rootWasPresent;
         private bool _cloneWasPresent;
         private bool _windowLastExists;
+        private bool _calibWasPresent;
+
         private static readonly Regex UkrainianRegex = new Regex(
             @"[\u0400-\u04FF]",
             RegexOptions.Compiled
@@ -77,6 +85,11 @@ namespace Ukrainization.Patches
                 return;
             if (DetectTextChange(ROOT_PATH_CLONE))
                 return;
+            if (CheckFirstAppearance(CALIB_PATH, ref _calibWasPresent))
+                return;
+            if (DetectTextChange(CALIB_PATH))
+                return;
+
             var window = GameObject.Find(WINDOW_PATH);
             bool windowExists = window != null;
             if (windowExists != _windowLastExists)
@@ -85,9 +98,12 @@ namespace Ukrainization.Patches
                 RerunAll();
                 return;
             }
+
             TranslateDynamicObject(PLAYTIME_PATH, ignoreCyrillic: true);
             if (window != null)
                 TranslateDynamicObject(WINDOW_PATH);
+
+            TranslateDynamicObject(CALIB_PATH);
         }
 
         private bool CheckFirstAppearance(string rootPath, ref bool wasPresent)
@@ -143,6 +159,7 @@ namespace Ukrainization.Patches
         {
             TranslateMainGrid(false);
             TranslateMainGrid(true);
+            TranslateDynamicObject(CALIB_PATH);
         }
 
         private void TranslateMainGrid(bool isClone)
