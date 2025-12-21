@@ -7,7 +7,8 @@ namespace Ukrainization.API
 {
     public class AssetManager
     {
-        protected Dictionary<Type, Dictionary<string, object>> data = new Dictionary<Type, Dictionary<string, object>>();
+        protected Dictionary<Type, Dictionary<string, object>> data =
+            new Dictionary<Type, Dictionary<string, object>>();
 
         public void Add<T>(string key, T value)
         {
@@ -19,7 +20,8 @@ namespace Ukrainization.API
             data[type][key] = value!;
         }
 
-        public void AddRange<T>(T[] range) where T : UnityEngine.Object
+        public void AddRange<T>(T[] range)
+            where T : UnityEngine.Object
         {
             foreach (var obj in range)
             {
@@ -79,4 +81,4 @@ namespace Ukrainization.API
             }
         }
     }
-} 
+}

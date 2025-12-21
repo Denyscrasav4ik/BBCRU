@@ -39,11 +39,14 @@ namespace Ukrainization.API
             return TextureFromFile(path, TextureFormat.RGBA32);
         }
 
-        private static Dictionary<AudioType, string[]> audioExtensions = new Dictionary<AudioType, string[]>
+        private static Dictionary<AudioType, string[]> audioExtensions = new Dictionary<
+            AudioType,
+            string[]
+        >
         {
             { AudioType.OGGVORBIS, new string[] { "ogg" } },
             { AudioType.WAV, new string[] { "wav" } },
-            { AudioType.MPEG, new string[] { "mp3" } }
+            { AudioType.MPEG, new string[] { "mp3" } },
         };
 
         public static AudioType GetAudioType(string path)
@@ -68,7 +71,7 @@ namespace Ukrainization.API
             "file://",
             "file:///",
             Path.Combine("File:///", ""),
-            Path.Combine("File://", "")
+            Path.Combine("File://", ""),
         };
 
         public static AudioClip? AudioClipFromFile(string path)
@@ -105,7 +108,7 @@ namespace Ukrainization.API
             {
                 AudioClip? clip = null;
                 UnityWebRequest? audioRequest = null;
-                
+
                 foreach (string fallback in fallbacks)
                 {
                     try
@@ -113,9 +116,9 @@ namespace Ukrainization.API
                         string fullPath = fallback + path;
                         audioRequest = UnityWebRequestMultimedia.GetAudioClip(fullPath, type);
                         audioRequest.SendWebRequest();
-                        
+
                         while (!audioRequest.isDone) { }
-                        
+
                         if (audioRequest.result == UnityWebRequest.Result.Success)
                         {
                             clip = DownloadHandlerAudioClip.GetContent(audioRequest);
@@ -125,7 +128,9 @@ namespace Ukrainization.API
                     }
                     catch (Exception ex)
                     {
-                        Logger.Warning($"Помилка при спробі завантажити аудіо з префіксом {fallback}: {ex.Message}");
+                        Logger.Warning(
+                            $"Помилка при спробі завантажити аудіо з префіксом {fallback}: {ex.Message}"
+                        );
                     }
                     finally
                     {
@@ -135,7 +140,7 @@ namespace Ukrainization.API
                         }
                     }
                 }
-                
+
                 Logger.Error($"Не вдалося завантажити аудіо: {path}");
                 return null;
             }
@@ -148,8 +153,10 @@ namespace Ukrainization.API
 
         public static Texture2D? AttemptConvertTo(Texture2D? toConvert, TextureFormat format)
         {
-            if (toConvert == null) return null;
-            if (toConvert.format == format) return toConvert;
+            if (toConvert == null)
+                return null;
+            if (toConvert.format == format)
+                return toConvert;
 
             try
             {

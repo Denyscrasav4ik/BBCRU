@@ -9,7 +9,10 @@ namespace Ukrainization.Patches
     [HarmonyPatch]
     internal class HudManagerPatch
     {
-        private static readonly Dictionary<string, string> LocalizationKeys = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> LocalizationKeys = new Dictionary<
+            string,
+            string
+        >()
         {
             { "Notebook Text", "Ukr_Hud_Notebooks" },
         };
@@ -41,7 +44,10 @@ namespace Ukrainization.Patches
                 string relativePath = entry.Key;
                 string localizationKey = entry.Value;
 
-                Transform? targetTransform = FindInChildrenIncludingInactive(hudTransform, relativePath);
+                Transform? targetTransform = FindInChildrenIncludingInactive(
+                    hudTransform,
+                    relativePath
+                );
                 if (targetTransform != null)
                 {
                     TMP_Text? textComponent = targetTransform.GetComponent<TMP_Text>();
@@ -88,9 +94,10 @@ namespace Ukrainization.Patches
                 localizer.key = localizationKey;
                 localizer.RefreshLocalization();
 
-                bool endlessMode = Object.FindObjectOfType<PartyEndlessManager>() != null
-                                   || Object.FindObjectOfType<ClassicEndlessManager>() != null
-                                   || Object.FindObjectOfType<DemoEndlessManager>() != null;
+                bool endlessMode =
+                    Object.FindObjectOfType<PartyEndlessManager>() != null
+                    || Object.FindObjectOfType<ClassicEndlessManager>() != null
+                    || Object.FindObjectOfType<DemoEndlessManager>() != null;
 
                 targetText.text = endlessMode
                     ? $"{foundNotebooks} {targetText.text}"

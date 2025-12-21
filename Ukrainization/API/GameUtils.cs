@@ -8,30 +8,36 @@ namespace Ukrainization.API
 {
     public static class GameUtils
     {
-        public static string? GetFileFrom(string[] paths, string fileName = "Subtitles_Ukrainian.json")
+        public static string? GetFileFrom(
+            string[] paths,
+            string fileName = "Subtitles_Ukrainian.json"
+        )
         {
             foreach (var path in paths)
             {
                 if (path.Contains(fileName))
                 {
-                  return path;
+                    return path;
                 }
             }
             return null;
         }
-        public static T GetAssetFromResources<T>(string includedName = "ObjectName") where T : Component
+
+        public static T GetAssetFromResources<T>(string includedName = "ObjectName")
+            where T : Component
         {
             var foundList = Resources.FindObjectsOfTypeAll<T>();
 
             foreach (var obj in foundList)
             {
-                if (obj.name  == includedName)
+                if (obj.name == includedName)
                 {
                     return obj;
                 }
             }
             return foundList.First();
         }
+
         public static void InsertDirectory(string mainPath)
         {
             if (!Directory.Exists(mainPath))
@@ -39,7 +45,9 @@ namespace Ukrainization.API
                 Directory.CreateDirectory(mainPath);
             }
         }
-        public static void CreateInstance<T>() where T : MonoBehaviour
+
+        public static void CreateInstance<T>()
+            where T : MonoBehaviour
         {
             if (GameObject.FindObjectOfType<T>(true) == null)
             {
@@ -51,9 +59,10 @@ namespace Ukrainization.API
             {
                 throw new System.Exception($"Клас {typeof(T).Name} вже існує!");
             }
-           
         }
-        public static T CreateInstanceI<T>() where T : MonoBehaviour
+
+        public static T CreateInstanceI<T>()
+            where T : MonoBehaviour
         {
             if (GameObject.FindObjectOfType<T>(true) == null)
             {

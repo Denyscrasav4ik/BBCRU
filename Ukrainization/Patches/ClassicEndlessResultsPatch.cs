@@ -43,7 +43,11 @@ namespace Ukrainization.Patches
         }
 
         [HarmonyPostfix]
-        private static void Initialize_Postfix(ClassicEndlessResults __instance, int score, int rank)
+        private static void Initialize_Postfix(
+            ClassicEndlessResults __instance,
+            int score,
+            int rank
+        )
         {
             ApplyLocalizationAndMove(__instance, score);
         }
@@ -70,8 +74,10 @@ namespace Ukrainization.Patches
             localizer.key = localizationKey;
             localizer.RefreshLocalization();
 
-            textComponent.text = $"{score} {Singleton<LocalizationManager>.Instance.GetLocalizedText(localizationKey)}";
+            textComponent.text =
+                $"{score} {Singleton<LocalizationManager>.Instance.GetLocalizedText(localizationKey)}";
         }
+
         private static string GetNotebookLocalizationKey(int number)
         {
             int lastTwoDigits = number % 100;

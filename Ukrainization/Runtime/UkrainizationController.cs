@@ -18,7 +18,10 @@ namespace Ukrainization.Runtime
 
         public void Load()
         {
-            Singleton<LocalizationManager>.Instance.LoadLocalizedText("Subtitles_Ukrainian.json", default(Language));
+            Singleton<LocalizationManager>.Instance.LoadLocalizedText(
+                "Subtitles_Ukrainian.json",
+                default(Language)
+            );
         }
     }
 }

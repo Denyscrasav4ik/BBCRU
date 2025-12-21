@@ -1,6 +1,6 @@
-﻿using UnityEngine.Events;
+﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine;
 
 namespace Ukrainization.Runtime
 {
@@ -16,7 +16,7 @@ namespace Ukrainization.Runtime
         public UnityAction onMenuSceneLoadOnce = null!;
         private bool MenuWasLoaded = false;
         private string lastScene = null!;
-        
+
         public void Start()
         {
             instance = this;
