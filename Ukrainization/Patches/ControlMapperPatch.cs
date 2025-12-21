@@ -14,7 +14,47 @@ namespace Ukrainization.Patches
             if (__instance == null)
                 return;
 
+            ApplyStaticCategoryButtonLocalization(__instance);
             ApplyDynamicActionGridLocalization(__instance);
+        }
+
+        private static void ApplyStaticCategoryButtonLocalization(
+            Rewired.UI.ControlMapper.ControlMapper controlMapper
+        )
+        {
+            ApplyLocalization(
+                controlMapper,
+                "Canvas/MainPageGroup/MainContent/MainContentInner/SettingAndMapCategoriesGroup/MapCategoriesGroup/ButtonLayoutGroup/DefaultButton/Text",
+                "Ukr_Ctrl_GameplayButton"
+            );
+
+            ApplyLocalization(
+                controlMapper,
+                "Canvas/MainPageGroup/MainContent/MainContentInner/SettingAndMapCategoriesGroup/MapCategoriesGroup/ButtonLayoutGroup/MenuButton/Text",
+                "Ukr_Ctrl_MenuButton"
+            );
+        }
+
+        private static void ApplyLocalization(
+            Rewired.UI.ControlMapper.ControlMapper controlMapper,
+            string path,
+            string key
+        )
+        {
+            Transform target = controlMapper.transform.Find(path);
+            if (target == null)
+                return;
+
+            TextMeshProUGUI text = target.GetComponent<TextMeshProUGUI>();
+            if (text == null)
+                return;
+
+            var localizer =
+                text.gameObject.GetComponent<TextLocalizer>()
+                ?? text.gameObject.AddComponent<TextLocalizer>();
+
+            localizer.key = key;
+            localizer.RefreshLocalization();
         }
 
         #region Dynamic Button & Title Localization on Windows

@@ -8,7 +8,7 @@ namespace Ukrainization.API
     {
         public const string ModGUID = "Ukrainization";
         public const string ModName = "Baldi's Basics Classic Remastered Ukrainization";
-        public const string ModVersion = "2.2";
+        public const string ModVersion = "2.3";
 
         public static string OverwritesFile = "Overwrites.json";
         public static string PostersFile = "PosterSettings.json";
