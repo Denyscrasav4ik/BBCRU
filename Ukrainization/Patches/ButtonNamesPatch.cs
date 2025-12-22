@@ -17,11 +17,10 @@ namespace Ukrainization.Patches
         private const string PLAYTIME_PATH = "TextCanvas";
         private const string CALIB_PATH =
             "RewiredControlMapper/Canvas/CalibrationWindow/Content/InnerContent/LeftGroup/ScrollboxContainer/ScrollArea/Content";
-
         private static readonly Dictionary<string, string> Map = new Dictionary<string, string>
         {
             { "Space", "Пробіл" },
-            { "Caps Lock", "Замок Капсу" },
+            { "Caps Lock", "Капс Лок" },
             { "Tab", "Таб" },
             { "ESC", "ЕСК" },
             { "Return", "Ентер" },
@@ -31,6 +30,16 @@ namespace Ukrainization.Patches
             { "Right Control", "Правий Контрол" },
             { "Left Alt", "Лівий Альт" },
             { "Right Alt", "Правий Альт" },
+            { "Left Command", "Ліва Команда" },
+            { "Right Command", "Права Команда" },
+            { "Delete", "Деліт" },
+            { "Insert", "Інсерт" },
+            { "Pause", "Пауза" },
+            { "Home", "Хом" },
+            { "End", "Енд" },
+            { "Keypad", "Клавіатурний" },
+            { "Backspace", "Бекспейс" },
+            { "Numlock", "Намлок" },
             { "Up Arrow", "Стрілка Вгору" },
             { "Down Arrow", "Стрілка Вниз" },
             { "Left Arrow", "Стрілка Вліво" },
@@ -61,19 +70,12 @@ namespace Ukrainization.Patches
             { "Start", "Старт" },
             { "Back", "Назад" },
         };
-
         private readonly Dictionary<TextMeshProUGUI, string> _textCache =
             new Dictionary<TextMeshProUGUI, string>();
-
         private bool _rootWasPresent;
         private bool _cloneWasPresent;
         private bool _windowLastExists;
         private bool _calibWasPresent;
-
-        private static readonly Regex UkrainianRegex = new Regex(
-            @"[\u0400-\u04FF]",
-            RegexOptions.Compiled
-        );
 
         private void Update()
         {
@@ -89,7 +91,6 @@ namespace Ukrainization.Patches
                 return;
             if (DetectTextChange(CALIB_PATH))
                 return;
-
             var window = GameObject.Find(WINDOW_PATH);
             bool windowExists = window != null;
             if (windowExists != _windowLastExists)
@@ -98,11 +99,9 @@ namespace Ukrainization.Patches
                 RerunAll();
                 return;
             }
-
-            TranslateDynamicObject(PLAYTIME_PATH, ignoreCyrillic: true);
+            TranslateDynamicObject(PLAYTIME_PATH);
             if (window != null)
                 TranslateDynamicObject(WINDOW_PATH);
-
             TranslateDynamicObject(CALIB_PATH);
         }
 
@@ -170,41 +169,32 @@ namespace Ukrainization.Patches
             ProcessRoot(root);
         }
 
-        private void TranslateDynamicObject(string path, bool ignoreCyrillic = false)
+        private void TranslateDynamicObject(string path)
         {
             var obj = GameObject.Find(path);
             if (obj != null)
-                ProcessRoot(obj, ignoreCyrillic);
+                ProcessRoot(obj);
         }
 
-        private void ProcessRoot(GameObject root, bool ignoreCyrillic = false)
+        private void ProcessRoot(GameObject root)
         {
             foreach (var tmp in root.GetComponentsInChildren<TextMeshProUGUI>(true))
-                Apply(tmp, ignoreCyrillic);
-
+                Apply(tmp);
             foreach (var text in root.GetComponentsInChildren<Text>(true))
-                Apply(text, ignoreCyrillic);
+                Apply(text);
         }
 
-        private void Apply(TextMeshProUGUI tmp, bool ignoreCyrillic = false)
+        private void Apply(TextMeshProUGUI tmp)
         {
             if (tmp == null || string.IsNullOrWhiteSpace(tmp.text))
                 return;
-
-            if (!ignoreCyrillic && UkrainianRegex.IsMatch(tmp.text))
-                return;
-
             tmp.text = Translate(tmp.text);
         }
 
-        private void Apply(Text text, bool ignoreCyrillic = false)
+        private void Apply(Text text)
         {
             if (text == null || string.IsNullOrWhiteSpace(text.text))
                 return;
-
-            if (!ignoreCyrillic && UkrainianRegex.IsMatch(text.text))
-                return;
-
             text.text = Translate(text.text);
         }
 

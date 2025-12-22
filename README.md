@@ -1,6 +1,6 @@
 # Baldi's Basics Classic Remastered Українізація
 
-![Версія](https://img.shields.io/badge/Версія-2.4-blue)
+![Версія](https://img.shields.io/badge/Версія-2.5-blue)
 ![Статус розробки](https://img.shields.io/badge/Статус-100%25-yellow)
 ![Гра](https://img.shields.io/badge/Гра-Baldi's%20Basics%20Classic%20Remastered%201.1a-green)
 
