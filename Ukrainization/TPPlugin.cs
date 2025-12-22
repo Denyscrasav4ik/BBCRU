@@ -17,7 +17,7 @@ namespace Ukrainization
     public class TPPlugin : BaseUnityPlugin
     {
         private Harmony harmonyInstance = null!;
-        private const string expectedGameVersion = "1.1";
+        private const string expectedGameVersion = "1.1a";
 
         public void Awake()
         {

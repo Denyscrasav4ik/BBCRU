@@ -17,8 +17,6 @@ namespace Ukrainization.Patches
         private static Sprite[] ukrainianLetters = new Sprite[33];
         private static bool isInitialized = false;
         private static bool prefabChangesDone = false;
-
-        // Дані спрайт-листа українського алфавіту
         private static readonly string[] AlphabetSheetData = new string[]
         {
             "А;61;366;65;43",
@@ -61,7 +59,6 @@ namespace Ukrainization.Patches
         {
             if (!ConfigManager.AreTexturesEnabled())
             {
-                // Logger.Info("Заміна букв у спальні вимкнена у конфігурації");
                 return;
             }
 
@@ -75,7 +72,6 @@ namespace Ukrainization.Patches
 
                 if (sheetTexture == null || ukrainianLetters[0] == null)
                 {
-                    // Logger.Warning("Український алфавіт не завантажено, пропускаємо заміну букв");
                     return;
                 }
 
@@ -84,15 +80,12 @@ namespace Ukrainization.Patches
 
                 if (wallLetters == null)
                 {
-                    // Logger.Warning("WallLetters(Clone) не знайдено у спальні");
                     return;
                 }
 
                 SpriteRenderer[] englishABCSorted =
                     wallLetters.GetComponentsInChildren<SpriteRenderer>();
                 Array.Sort(englishABCSorted, (x, y) => string.Compare(x.name, y.name));
-
-                // Logger.Info($"Знайдено {englishABCSorted.Length} англійських букв, замінюємо на українські");
 
                 for (int i = 0; i < englishABCSorted.Length && i < ukrainianLetters.Length; i++)
                 {
@@ -126,50 +119,45 @@ namespace Ukrainization.Patches
                     new Vector3(2f, 2.2727f, 14.95f),
                     new Vector3(0f, 0f, 11.1309f),
                     new Color(1f, 0f, 0f, 1f)
-                ); // Щ
+                );
                 SetupLetter(
                     additionalLetters[1],
                     new Vector3(5f, 3f, 14.95f),
                     Vector3.zero,
                     new Color(0f, 1f, 1f, 1f)
-                ); // Я
+                );
                 SetupLetter(
                     additionalLetters[3],
                     new Vector3(7.6253f, 2.6436f, 14.95f),
                     Vector3.zero,
                     new Color(0.64f, 0.4976f, 0.766f, 1f)
-                ); // Ь
+                );
                 SetupLetter(
                     additionalLetters[0],
                     new Vector3(10f, 3f, 14.95f),
                     Vector3.zero,
                     new Color(0.4137f, 0.7f, 1f, 1f)
-                ); // Ю
+                );
                 SetupLetter(
                     additionalLetters[6],
                     new Vector3(12.2546f, 2.3164f, 14.95f),
                     new Vector3(0f, 0f, 335.6689f),
                     new Color(0.1137f, 0.1176f, 0.6906f, 1f)
-                ); // Ъ
+                );
                 SetupLetter(
                     additionalLetters[2],
                     new Vector3(15f, 3f, 14.95f),
                     new Vector3(0f, 0f, 348.052f),
                     new Color(0.5937f, 0.3176f, 0.2f, 1f)
-                ); // Ы
+                );
                 SetupLetter(
                     additionalLetters[4],
                     new Vector3(18.3128f, 2.3818f, 14.95f),
                     new Vector3(0f, 0f, 11.42f),
                     new Color(0.54f, 0f, 0.472f, 1f)
-                ); // Ю
-
-                // Logger.Info("Українські букви успішно розміщено у спальні Балді");
+                );
             }
-            catch (Exception)
-            {
-                // Logger.Error($"Помилка при заміні букв у спальні");
-            }
+            catch (Exception) { }
 
             if (!prefabChangesDone)
             {
@@ -178,10 +166,7 @@ namespace Ukrainization.Patches
                     ApplyBookPrefabLocalization(__instance);
                     prefabChangesDone = true;
                 }
-                catch (Exception)
-                {
-                    // Logger.Error($"Помилка при модифікації префабів книг");
-                }
+                catch (Exception) { }
             }
         }
 
@@ -197,17 +182,12 @@ namespace Ukrainization.Patches
 
                 if (sheetTexture == null)
                 {
-                    // Logger.Error($"Не вдалося завантажити Alphabet_Ua_Sheet.png з {texturePath}");
-                    // Logger.Info("Помістіть файл Alphabet_Ua_Sheet.png у папку Textures");
                     return;
                 }
 
                 sheetTexture.filterMode = FilterMode.Point;
                 sheetTexture.Apply();
                 sheetTexture.name = "Alphabet_Ua_Sheet";
-
-                // Logger.Info($"Текстура українського алфавіту завантажена: {sheetTexture.width}x{sheetTexture.height}");
-                // Logger.Info($"Обробляємо {AlphabetSheetData.Length} букв українського алфавіту");
 
                 for (int i = 0; i < AlphabetSheetData.Length && i < ukrainianLetters.Length; i++)
                 {
@@ -220,7 +200,6 @@ namespace Ukrainization.Patches
 
                     if (splits.Length < 5)
                     {
-                        // Logger.Warning($"Некоректний рядок даних: {line}");
                         continue;
                     }
 
@@ -239,13 +218,8 @@ namespace Ukrainization.Patches
                     ukrainianLetter.name = $"Alphabet_Ua_{letterName}";
                     ukrainianLetters[i] = ukrainianLetter;
                 }
-
-                // Logger.Info($"Створено {ukrainianLetters.Length} спрайтів українських букв");
             }
-            catch (Exception)
-            {
-                // Logger.Error("Помилка при завантаженні українського алфавіту");
-            }
+            catch (Exception) { }
         }
 
         private static void SetupLetter(
@@ -272,7 +246,6 @@ namespace Ukrainization.Patches
 
                 if (bookPreField == null)
                 {
-                    // Logger.Warning("Поле bookPre не знайдено у ClassicBasementManager");
                     return;
                 }
 
@@ -280,11 +253,8 @@ namespace Ukrainization.Patches
 
                 if (bookPre == null || bookPre.Length == 0)
                 {
-                    // Logger.Warning("Масив bookPre порожній або null");
                     return;
                 }
-
-                // Logger.Info($"Знайдено {bookPre.Length} префабів книг, застосовуємо українізацію");
 
                 for (int i = 0; i < bookPre.Length; i++)
                 {
@@ -293,13 +263,8 @@ namespace Ukrainization.Patches
                         ApplyLocalizationToBookPrefab(bookPre[i]);
                     }
                 }
-
-                // Logger.Info("Українізація застосована до всіх префабів книг");
             }
-            catch (Exception)
-            {
-                // Logger.Error("Помилка при застосуванні українізації до префабів книг");
-            }
+            catch (Exception) { }
         }
 
         private static void ApplyLocalizationToBookPrefab(ClassicMathBook book)
@@ -342,13 +307,8 @@ namespace Ukrainization.Patches
                         ApplyTextLocalizer(insideTexts[i].transform, $"Ukr_ClassicBook_Text_{i}");
                     }
                 }
-
-                // Logger.Info($"Українізація застосована до книги: {book.name}");
             }
-            catch (Exception)
-            {
-                // Logger.Error($"Помилка при українізації книги {book.name}");
-            }
+            catch (Exception) { }
         }
 
         private static void ApplyTextLocalizer(
@@ -367,7 +327,6 @@ namespace Ukrainization.Patches
             TextLocalizer existingLocalizer = textComponent.GetComponent<TextLocalizer>();
             if (existingLocalizer != null)
             {
-                // Logger.Info($"TextLocalizer вже існує для {textTransform.name}");
                 return;
             }
 
@@ -380,8 +339,6 @@ namespace Ukrainization.Patches
             }
 
             localizer.RefreshLocalization();
-
-            // Logger.Info($"TextLocalizer додано: {textTransform.name} -> {localizationKey}");
         }
 
         private static string GetBookIdentifierFromName(string bookName)

@@ -150,7 +150,7 @@ namespace Ukrainization.Patches
                 if (
                     localizedText != null
                     && localizedText.Count > 0
-                    && localizedText.ContainsKey("TWGS_ClassicLauncher_PlayButton")
+                    && localizedText.ContainsKey("Ukr_ClassicLauncher_PlayButton")
                 )
                 {
                     return;
