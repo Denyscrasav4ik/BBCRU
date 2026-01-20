@@ -42,6 +42,7 @@ namespace Ukrainization.Patches
             { "Backspace", "Бекспейс" },
             { "Numlock", "Намлок" },
             { "Back Quote", "Апостроф" },
+            { "Left Mouse Button", " Ліва Клавіша Миші" },
             { "Mouse Button", "Клавіша Миші" },
             { "Mouse Button 3", "Клавіша Миші 3" },
             { "Mouse Wheel", "Коліщатко Миші" },
@@ -193,12 +194,13 @@ namespace Ukrainization.Patches
 
         private string Translate(string input)
         {
-            var result = input;
+            string result = input;
+
             foreach (var pair in Map)
             {
-                var pattern = @"\b" + Regex.Escape(pair.Key) + @"\b";
-                result = Regex.Replace(result, pattern, pair.Value);
+                result = result.Replace(pair.Key, pair.Value);
             }
+
             return result;
         }
     }
