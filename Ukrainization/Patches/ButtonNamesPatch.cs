@@ -43,6 +43,7 @@ namespace Ukrainization.Patches
             { "Numlock", "Намлок" },
             { "Back Quote", "Апостроф" },
             { "Left Mouse Button", " Ліва Клавіша Миші" },
+            { "Right Mouse Button", "Права Клавіша Миші" },
             { "Mouse Button", "Клавіша Миші" },
             { "Mouse Button 3", "Клавіша Миші 3" },
             { "Mouse Wheel", "Коліщатко Миші" },
