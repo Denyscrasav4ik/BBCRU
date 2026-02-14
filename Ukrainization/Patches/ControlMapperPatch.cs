@@ -59,8 +59,6 @@ namespace Ukrainization.Patches
             localizer.RefreshLocalization();
         }
 
-        #region Dynamic Title & Content Localization for Window
-
         [HarmonyPatch(typeof(Rewired.UI.ControlMapper.Window), "Enable")]
         private class WindowPatch
         {
@@ -197,8 +195,6 @@ namespace Ukrainization.Patches
                 return null;
             }
         }
-
-        #endregion
 
         private static void ApplyDynamicActionGridLocalization(
             Rewired.UI.ControlMapper.ControlMapper controlMapper
