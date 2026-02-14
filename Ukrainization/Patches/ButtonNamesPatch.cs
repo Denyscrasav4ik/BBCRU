@@ -68,7 +68,6 @@ namespace Ukrainization.Patches
             if (root == null)
                 return;
 
-            // Recursively translate all TMP objects in children
             foreach (var tmp in root.GetComponentsInChildren<TextMeshProUGUI>(true))
             {
                 if (tmp != null && !string.IsNullOrWhiteSpace(tmp.text))
@@ -83,10 +82,6 @@ namespace Ukrainization.Patches
                 result = result.Replace(pair.Key, pair.Value);
             return result;
         }
-
-        // =========================
-        // HARMONY PATCHES
-        // =========================
 
         [HarmonyPatch(typeof(Rewired.UI.ControlMapper.ControlMapper), "PopulateInputFields")]
         private static class ControlMapperPatch
